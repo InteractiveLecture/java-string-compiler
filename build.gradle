@@ -1,0 +1,45 @@
+// Apply the java plugin to add support for Java
+plugins {
+  id "com.jfrog.bintray" version "1.4"
+}
+
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+bintray {
+	user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+	key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    pkg {
+      repo = 'maven'
+        name = 'java-string-compiler'
+        userOrg = 'interactivelecture'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/InteractiveLecture/java-string-compiler.git'
+        version {
+          name = '1.0.0'
+        }
+    }
+  publications = ['MyPublication'] 
+}
+
+publishing {
+  publications {
+    MyPublication(MavenPublication) {
+      from components.java
+        groupId 'org.interactivelecture'
+        artifactId 'java-string-compiler'
+        version '1.0.0'
+    }
+  }
+}
+
+repositories {
+  jcenter()
+}
+import javax.tools.ToolProvider
+
+dependencies {
+    compile (files(((URLClassLoader) ToolProvider.getSystemToolClassLoader()).getURLs()))
+    testCompile 'junit:junit:4.12'
+}
