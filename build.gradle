@@ -10,8 +10,8 @@ bintray {
 	user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
 	key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
     pkg {
-      repo = 'java-string-compiler'
-        name = 'java-string-compiler'
+      repo = 'java'
+        name = 'string-compiler'
         userOrg = 'interactivelecture'
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/InteractiveLecture/java-string-compiler.git'
@@ -19,15 +19,15 @@ bintray {
           name = '1.0.0'
         }
     }
-  publications = ['MyPublication'] 
+  publications = ['MyPublication']
 }
 
 publishing {
   publications {
     MyPublication(MavenPublication) {
       from components.java
-        groupId 'org.interactivelecture'
-        artifactId 'java-string-compiler'
+        groupId 'org.interactivelecture.java'
+        artifactId 'string-compiler'
         version '1.0.0'
     }
   }
